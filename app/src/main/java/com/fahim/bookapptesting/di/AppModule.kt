@@ -2,7 +2,7 @@ package com.fahim.bookapptesting.di
 
 import android.content.Context
 import androidx.room.Room
-import com.fahim.bookapptesting.Constant
+import com.fahim.bookapptesting.util.Constant
 import com.fahim.bookapptesting.api.RetrofitAPI
 import com.fahim.bookapptesting.database.AppDatabase
 import dagger.Module

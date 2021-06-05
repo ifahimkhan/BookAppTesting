@@ -1,4 +1,4 @@
-package com.fahim.bookapptesting
+package com.fahim.bookapptesting.util
 
 object Constant {
     var API_KEY = "21941178-1df45cfd531591937ac6b7826"
