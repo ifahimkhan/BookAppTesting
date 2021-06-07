@@ -8,6 +8,7 @@ data class Book(
     var title: String,
     var author: String,
     var year: String,
+    var imageUrl : String,
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null
 )
