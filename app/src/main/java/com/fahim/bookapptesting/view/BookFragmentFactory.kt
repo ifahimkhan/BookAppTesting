@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentFactory
 import com.bumptech.glide.RequestManager
 import com.fahim.bookapptesting.view.adapter.BookRecyclerAdapter
 import com.fahim.bookapptesting.view.adapter.ImageRecyclerAdapter
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 class BookFragmentFactory @Inject constructor(
@@ -12,6 +13,7 @@ class BookFragmentFactory @Inject constructor(
     private val adapter: BookRecyclerAdapter,
     private val imageRecyclerAdapter: ImageRecyclerAdapter
 ) : FragmentFactory() {
+    @ExperimentalCoroutinesApi
     override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
         return when (className) {
             BookDetailsFragment::class.java.name -> BookDetailsFragment(glide)

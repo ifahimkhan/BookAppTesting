@@ -24,7 +24,8 @@ class BookViewModel @ViewModelInject constructor(
     val inserBookMessage: LiveData<Resource<Book>> = insertBookMsg
 
     fun resetInsertBookMessage() {
-        insertBookMsg = MutableLiveData<Resource<Book>>()
+        insertBookMsg.postValue(Resource.loading(null))
+        Log.e("TAG", "resetInsertBookMessage: ")
     }
 
     fun deleteBook(book: Book) {

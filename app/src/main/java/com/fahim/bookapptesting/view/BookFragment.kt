@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +16,8 @@ import com.fahim.bookapptesting.view.adapter.BookRecyclerAdapter
 import com.fahim.bookapptesting.viewmodel.BookViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -51,11 +53,11 @@ class BookFragment @Inject constructor(
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentMainBinding.bind(view);
-
-
         viewModel = ViewModelProvider(requireActivity()).get(BookViewModel::class.java)
+
         binding.floatingActionButton.setOnClickListener {
             Log.e("TAG", "floatingActionButton click: ")
+//            viewModel.resetInsertBookMessage()
             findNavController().navigate(BookFragmentDirections.actionBookFragmentToBookDetailsFragment())
         }
         binding.recyclerViewItems.apply {

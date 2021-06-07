@@ -1,5 +1,6 @@
 package com.fahim.bookapptesting.view
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -26,11 +27,29 @@ class BookDetailsFragment @Inject constructor(private val glide: RequestManager)
     private lateinit var viewModel: BookViewModel
     private lateinit var callBack: OnBackPressedCallback
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.e("TAG", "onAttach: ")
+        callBack = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                viewModel.setSelectedImageUrl("")
+                findNavController().navigateUp()
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this, callBack)
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.e("TAG", "onViewCreated: ")
+
         viewModel = ViewModelProvider(requireActivity()).get(BookViewModel::class.java)
 
         binding = FragmentBookDetailsBinding.bind(view)
+
+        subscribe()
 
         binding.mainImageView.setOnClickListener {
             findNavController().navigate(BookDetailsFragmentDirections.actionBookDetailsFragmentToImageApiFragment())
@@ -47,33 +66,30 @@ class BookDetailsFragment @Inject constructor(private val glide: RequestManager)
             Log.e("TAG", "btnSave: ")
         }
 
-        callBack = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                viewModel.setSelectedImageUrl("")
-                findNavController().navigateUp()
-            }
-        }
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callBack)
+    }
 
+    fun subscribe() {
         viewModel.selectedImageUrl.observe(viewLifecycleOwner, Observer { url ->
-            binding?.let {
+            binding.let {
                 glide.load(url).into(it.mainImageView)
             }
         })
-        viewModel.inserBookMessage.observe(viewLifecycleOwner, { resources ->
-            when (resources.status) {
-                Status.LOADING -> {
-                    Toast.makeText(context, "Loading...!", Toast.LENGTH_LONG).show()
-                }
-                Status.ERROR -> {
-
-                    Toast.makeText(context, "${resources.message}!", Toast.LENGTH_SHORT).show()
-                }
+        viewModel.inserBookMessage.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
                 Status.SUCCESS -> {
-                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), "Success", Toast.LENGTH_LONG).show()
                     findNavController().navigateUp()
                     viewModel.resetInsertBookMessage()
+                }
+
+                Status.ERROR -> {
+                    Toast.makeText(requireContext(), it.message ?: "Error", Toast.LENGTH_LONG)
+                        .show()
+                }
+
+                Status.LOADING -> {
+
                 }
             }
         })
