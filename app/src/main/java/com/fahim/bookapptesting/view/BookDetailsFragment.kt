@@ -23,8 +23,8 @@ import javax.inject.Inject
 class BookDetailsFragment @Inject constructor(private val glide: RequestManager) :
     Fragment(R.layout.fragment_book_details) {
 
-    private lateinit var binding: FragmentBookDetailsBinding
-    private lateinit var viewModel: BookViewModel
+    lateinit var binding: FragmentBookDetailsBinding
+    lateinit var viewModel: BookViewModel
     private lateinit var callBack: OnBackPressedCallback
 
     override fun onAttach(context: Context) {

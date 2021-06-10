@@ -23,11 +23,11 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ImageApiFragment @Inject constructor(
-    private val mAdapter: ImageRecyclerAdapter
+    val mAdapter: ImageRecyclerAdapter
 ) : Fragment(R.layout.fragment_image_api) {
 
     lateinit var viewModel: BookViewModel
-    private lateinit var binding: FragmentImageApiBinding
+    lateinit var binding: FragmentImageApiBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
