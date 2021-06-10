@@ -34,6 +34,7 @@ class BookDetailsFragment @Inject constructor(private val glide: RequestManager)
             override fun handleOnBackPressed() {
                 viewModel.setSelectedImageUrl("")
                 findNavController().navigateUp()
+                viewModel.resetInsertBookMessage()
             }
         }
 

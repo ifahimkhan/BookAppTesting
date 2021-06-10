@@ -1,6 +1,8 @@
 package com.fahim.bookapptesting
 
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.fahim.bookapptesting.view.BookFragmentFactory
@@ -16,5 +18,14 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.fragmentFactory = fragmentFactory
         setContentView(R.layout.activity_main)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.e("TAG", "onRestart: ", )
+    }
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        Log.e("TAG", "onConfigurationChanged: ", )
     }
 }

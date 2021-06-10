@@ -10,6 +10,7 @@ import com.fahim.bookapptesting.database.Book
 import com.fahim.bookapptesting.model.ImageResponse
 import com.fahim.bookapptesting.repository.BookInterface
 import com.fahim.bookapptesting.util.Resource
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 
@@ -18,6 +19,7 @@ class BookViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
 
+    private val TAG: String = "BookViewModel"
     val bookList = repo.getBooks()
 
     private var insertBookMsg = MutableLiveData<Resource<Book>>()
@@ -55,6 +57,7 @@ class BookViewModel @ViewModelInject constructor(
         }
         val book: Book =
             Book(title = title, author = author, year = year, imageUrl = selectedImage.value ?: "")
+
         inserBook(book)
         setSelectedImageUrl("")
         insertBookMsg.postValue(Resource.success(book))
